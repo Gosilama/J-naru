@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Journal</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="login_text">Login</string>
+    <string name="title_activity_journal_list">JournalListActivity</string>
+    <string name="journal_title">Entry title</string>
+    <string name="journal_content">Write away…</string>
+</resources>
