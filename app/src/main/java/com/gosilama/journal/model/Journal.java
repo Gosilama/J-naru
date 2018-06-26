@@ -6,6 +6,8 @@ public class Journal {
     private Long timeCreated;
     private int id;
 
+    public Journal(){}
+
     public Journal(String journalTitle, String journalEntry, Long timeCreated, int id) {
         this.journalTitle = journalTitle;
         this.journalEntry = journalEntry;

@@ -6,35 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".activity.JournalActivity">
 
-    <TextView
-        android:id="@+id/journal_title"
+    <EditText
+        android:id="@+id/journal_entry_title"
         android:layout_width="match_parent"
-        android:layout_height="31dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:hint="@string/journal_title"
-        app:layout_constraintBottom_toTopOf="@+id/journal_content"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/journal_entry_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/journal_content"
+    <EditText
+        android:id="@+id/journal_entry_content"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="68dp"
         android:hint="@string/journal_content"
+        android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.01" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/save_action_btn"
@@ -53,4 +56,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.982" />
+
 </android.support.constraint.ConstraintLayout>
