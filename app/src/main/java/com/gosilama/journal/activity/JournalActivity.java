@@ -1,5 +1,6 @@
 package com.gosilama.journal.activity;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,6 +44,10 @@ public class JournalActivity extends AppCompatActivity {
 
                     saveJournalEntry(journal);
                     Log.d("JOURNAL_ACTIVITY", "CHORE SAVED SUCCESSFULLY");
+
+                    Intent intent = new Intent(getApplicationContext(), JournalListActivity.class);
+                    startActivity(intent);
+                    finish();
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Nothing on your mind?", Toast.LENGTH_SHORT).show();

@@ -3,15 +3,15 @@ package com.gosilama.journal.model;
 public class Journal {
     private String journalTitle;
     private String journalEntry;
-    private Long timeCreated;
+    private Long dateCreated;
     private int id;
 
     public Journal(){}
 
-    public Journal(String journalTitle, String journalEntry, Long timeCreated, int id) {
+    public Journal(String journalTitle, String journalEntry, Long dateCreated, int id) {
         this.journalTitle = journalTitle;
         this.journalEntry = journalEntry;
-        this.timeCreated = timeCreated;
+        this.dateCreated = dateCreated;
         this.id = id;
     }
 
@@ -31,12 +31,12 @@ public class Journal {
         this.journalEntry = journalEntry;
     }
 
-    public Long getTimeCreated() {
-        return timeCreated;
+    public Long getDateCreated() {
+        return dateCreated;
     }
 
-    public void setTimeCreated(Long timeCreated) {
-        this.timeCreated = timeCreated;
+    public void setDateCreated(Long dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public int getId() {

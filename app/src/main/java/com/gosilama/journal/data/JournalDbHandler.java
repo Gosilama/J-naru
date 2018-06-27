@@ -8,9 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.gosilama.journal.model.Journal;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import static com.gosilama.journal.model.Constants.DATABASE_NAME;
 import static com.gosilama.journal.model.Constants.DATABASE_VERSION;
@@ -85,10 +83,7 @@ public class JournalDbHandler extends SQLiteOpenHelper{
             Journal journal = new Journal();
             journal.setJournalTitle(cursor.getString(cursor.getColumnIndex(KEY_JOURNAL_TITLE)));
             journal.setJournalEntry(cursor.getString(cursor.getColumnIndex(KEY_JOURNAL_ENTRY)));
-            journal.setTimeCreated(cursor.getLong(cursor.getColumnIndex(KEY_TIME_CREATED)));
-
-            DateFormat dateFormat = DateFormat.getDateInstance();
-            dateFormat.format(new Date(cursor.getLong(cursor.getColumnIndex(KEY_TIME_CREATED))).getTime());
+            journal.setDateCreated(cursor.getLong(cursor.getColumnIndex(KEY_TIME_CREATED)));
 
             cursor.close();
 
@@ -100,9 +95,9 @@ public class JournalDbHandler extends SQLiteOpenHelper{
     public ArrayList<Journal> readAllJournalEntries() {
         SQLiteDatabase db = getReadableDatabase();
 
-        ArrayList<Journal> journals = new ArrayList<>();
+        ArrayList<Journal> journalArrayList = new ArrayList<>();
 
-        String SELECT_ALL = "SELECT * FROM " + TABLE_NAME;
+        String SELECT_ALL = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + KEY_ID + " DESC";
 
         Cursor cursor = db.rawQuery(SELECT_ALL, null);
 
@@ -110,17 +105,18 @@ public class JournalDbHandler extends SQLiteOpenHelper{
             do {
                 Journal journal = new Journal();
 
+                journal.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
                 journal.setJournalTitle(cursor.getString(cursor.getColumnIndex(KEY_JOURNAL_TITLE)));
                 journal.setJournalEntry(cursor.getString(cursor.getColumnIndex(KEY_JOURNAL_ENTRY)));
-                journal.setTimeCreated(cursor.getLong(cursor.getColumnIndex(KEY_TIME_CREATED)));
+                journal.setDateCreated(cursor.getLong(cursor.getColumnIndex(KEY_TIME_CREATED)));
 
-                journals.add(journal);
+                journalArrayList.add(journal);
             } while (cursor.moveToNext());
         }
 
         cursor.close();
 
-        return journals;
+        return journalArrayList;
     }
 
     public int updateJournal(Journal journal) {
@@ -136,10 +132,10 @@ public class JournalDbHandler extends SQLiteOpenHelper{
         return db.update(TABLE_NAME, values,KEY_ID + "=?", selectionArg);
     }
 
-    public void deleteJournal(Journal journal) {
+    public void deleteJournal(int id) {
         SQLiteDatabase db = getWritableDatabase();
 
-        String selectionArg[] = {Integer.toString(journal.getId())};
+        String selectionArg[] = {Integer.toString(id)};
 
         db.delete(TABLE_NAME, KEY_ID + "=?", selectionArg);
         db.close();
