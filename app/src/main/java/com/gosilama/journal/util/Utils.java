@@ -5,7 +5,7 @@ import java.util.Date;
 
 public final class Utils {
     public static String showReadableDate(Long dateInMillis) {
-        DateFormat dateFormat = DateFormat.getDateInstance();
+        DateFormat dateFormat = DateFormat.getDateTimeInstance();
         return dateFormat.format(new Date(dateInMillis).getTime());
     }
 }
