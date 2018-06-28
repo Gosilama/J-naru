@@ -14,4 +14,5 @@
     <string name="save_entry_toast">Entry Saved</string>
     <string name="updated_entry_toast">Journal updated</string>
     <string name="registration_successful">Registered!</string>
+    <string name="registration_popup_message">Please Register. It will only take a few seconds</string>
 </resources>

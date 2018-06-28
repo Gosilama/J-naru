@@ -50,6 +50,9 @@ public class JournalActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+
+        Toast.makeText(this, "Nothing Saved.", Toast.LENGTH_LONG).show();
+
         Intent intent = new Intent(this, JournalListActivity.class);
         startActivity(intent);
     }
