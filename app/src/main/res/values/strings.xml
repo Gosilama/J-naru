@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Jānaru</string>
-    <string name="hint_username">Username</string>
+    <string name="hint_email">Username</string>
     <string name="hint_password">Password</string>
     <string name="user_login">Login</string>
     <string name="title_activity_journal_list">JournalListActivity</string>
@@ -10,4 +10,8 @@
     <string name="register_password_hint">Password</string>
     <string name="register_confirm_pwd_hint">Confirm Password</string>
     <string name="user_register">REGISTER</string>
+    <string name="empty_entry_toast">Nothing on your mind?</string>
+    <string name="save_entry_toast">Entry Saved</string>
+    <string name="updated_entry_toast">Journal updated</string>
+    <string name="registration_successful">Registered!</string>
 </resources>

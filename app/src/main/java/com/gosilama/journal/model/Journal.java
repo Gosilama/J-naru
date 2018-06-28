@@ -1,6 +1,8 @@
 package com.gosilama.journal.model;
 
-public class Journal {
+import java.io.Serializable;
+
+public class Journal implements Serializable{
     private String journalTitle;
     private String journalEntry;
     private Long dateCreated;

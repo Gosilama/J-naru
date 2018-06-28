@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "77912021747",
+    "firebase_url": "https://journalgosilama.firebaseio.com",
+    "project_id": "journalgosilama",
+    "storage_bucket": "journalgosilama.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77912021747:android:4bad9776bbb6ff94",
+        "android_client_info": {
+          "package_name": "com.gosilama.journal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "77912021747-v1ourh0asbeqg6loqccvjfgj7a6g70t5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrdrbpckwYkbeIF9kNH4kPe5xIETaMs4A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -15,10 +15,14 @@ import com.gosilama.journal.R;
 import com.gosilama.journal.data.JournalDbHandler;
 import com.gosilama.journal.model.Journal;
 
+import java.io.Serializable;
+
 public class JournalActivity extends AppCompatActivity {
 
     private EditText journalEntryTitle;
     private EditText journalEntryContent;
+    private FloatingActionButton saveJournalEntry;
+
     private JournalDbHandler dbHandler;
 
     @Override
@@ -28,10 +32,29 @@ public class JournalActivity extends AppCompatActivity {
 
         journalEntryTitle = findViewById(R.id.journal_entry_title);
         journalEntryContent = findViewById(R.id.journal_entry_content);
+        saveJournalEntry = findViewById(R.id.save_action_btn);
 
         dbHandler = new JournalDbHandler(this);
 
-        final FloatingActionButton saveJournalEntry = findViewById(R.id.save_action_btn);
+        Journal journal = (Journal) getIntent().getSerializableExtra("EXTRA_JOURNAL");
+        if (journal != null) {
+            journalEntryTitle.setText(journal.getJournalTitle());
+            journalEntryContent.setText(journal.getJournalEntry());
+
+            updateJournalEntry(journal);
+        } else {
+            saveJournalEntry();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, JournalListActivity.class);
+        startActivity(intent);
+    }
+
+    public void saveJournalEntry() {
         saveJournalEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,13 +65,9 @@ public class JournalActivity extends AppCompatActivity {
                     journal.setJournalTitle(journalEntryTitle.getText().toString());
                     journal.setJournalEntry(journalEntryContent.getText().toString());
 
-                    saveJournalEntry(journal);
-                    Log.d("JOURNAL_ACTIVITY", "CHORE SAVED SUCCESSFULLY");
+                    dbHandler.createJournal(journal);
 
-                    Intent intent = new Intent(getApplicationContext(), JournalListActivity.class);
-                    startActivity(intent);
-                    finish();
-
+                    goToJournalList();
                 } else {
                     Toast.makeText(getApplicationContext(), "Nothing on your mind?", Toast.LENGTH_SHORT).show();
                 }
@@ -56,7 +75,18 @@ public class JournalActivity extends AppCompatActivity {
         });
     }
 
-    public void saveJournalEntry(Journal journal) {
-        dbHandler.createJournal(journal);
+    public void updateJournalEntry(Journal journal) {
+        saveJournalEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Chore updated", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void goToJournalList() {
+        Intent intent = new Intent(getApplicationContext(), JournalListActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

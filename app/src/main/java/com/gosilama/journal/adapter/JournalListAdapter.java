@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,11 +70,9 @@ public class JournalListAdapter extends RecyclerView.Adapter<JournalListAdapter.
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int RESULT_CODE = 1;
 
                     Intent intent = new Intent(context, JournalActivity.class);
-                    intent.putExtra("EXTRA_JOURNAL_TITLE", journal.getJournalTitle());
-                    intent.putExtra("EXTRA_JOURNAL_CONTENT", journal.getJournalEntry());
+                    intent.putExtra("EXTRA_JOURNAL", journal);
 
                     context.startActivity(intent);
                 }

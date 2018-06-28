@@ -47,12 +47,12 @@ public class JournalListActivity extends AppCompatActivity {
 
         for (Journal j: journalArrayList) {
             Journal journal = new Journal();
+            journal.setId(j.getId());
             journal.setJournalTitle(j.getJournalTitle());
             journal.setJournalEntry(j.getJournalEntry());
             journal.setDateCreated(j.getDateCreated());
 
             journalArrayListItem.add(journal);
-            Log.d("JOURNALLISTACTIVITY", Utils.showReadableDate(j.getDateCreated()));
         }
 
         journalListAdapter.notifyDataSetChanged();
@@ -67,4 +67,7 @@ public class JournalListActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() { }
 }

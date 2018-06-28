@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.gosilama.journal.model.Journal;
 
@@ -86,6 +87,7 @@ public class JournalDbHandler extends SQLiteOpenHelper{
             journal.setDateCreated(cursor.getLong(cursor.getColumnIndex(KEY_TIME_CREATED)));
 
             cursor.close();
+            db.close();
 
             return journal;
         }
@@ -115,6 +117,7 @@ public class JournalDbHandler extends SQLiteOpenHelper{
         }
 
         cursor.close();
+        db.close();
 
         return journalArrayList;
     }
@@ -150,6 +153,7 @@ public class JournalDbHandler extends SQLiteOpenHelper{
         int count = cursor.getCount();
 
         cursor.close();
+        db.close();
 
         return count;
     }
