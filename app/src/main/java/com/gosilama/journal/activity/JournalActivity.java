@@ -5,19 +5,22 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.gosilama.journal.R;
 import com.gosilama.journal.data.JournalDbHandler;
 import com.gosilama.journal.model.Journal;
 
-import java.io.Serializable;
+import static com.gosilama.journal.util.Constants.CURRENT_USER_ID;
 
 public class JournalActivity extends AppCompatActivity {
+
+    private FirebaseUser firebaseUser;
 
     private EditText journalEntryTitle;
     private EditText journalEntryContent;
@@ -29,6 +32,8 @@ public class JournalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal);
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         journalEntryTitle = findViewById(R.id.journal_entry_title);
         journalEntryContent = findViewById(R.id.journal_entry_content);
@@ -65,6 +70,7 @@ public class JournalActivity extends AppCompatActivity {
                         && !TextUtils.isEmpty(journalEntryContent.getText())) {
 
                     Journal journal = new Journal();
+                    journal.setUserId(CURRENT_USER_ID);
                     journal.setJournalTitle(journalEntryTitle.getText().toString());
                     journal.setJournalEntry(journalEntryContent.getText().toString());
 
@@ -78,11 +84,23 @@ public class JournalActivity extends AppCompatActivity {
         });
     }
 
-    public void updateJournalEntry(Journal journal) {
+    public void updateJournalEntry(final Journal journal) {
         saveJournalEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Chore updated", Toast.LENGTH_LONG).show();
+
+                if (!TextUtils.isEmpty(journalEntryTitle.getText())
+                        && !TextUtils.isEmpty(journalEntryContent.getText())) {
+                    journal.setJournalTitle(journalEntryTitle.getText().toString());
+                    journal.setJournalEntry(journalEntryContent.getText().toString());
+
+                    dbHandler.updateJournal(journal);
+
+                    goToJournalList();
+
+                    Toast.makeText(getApplicationContext(), "Journal updated", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
     }

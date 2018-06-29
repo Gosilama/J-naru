@@ -7,15 +7,9 @@ public class Journal implements Serializable{
     private String journalEntry;
     private Long dateCreated;
     private int id;
+    private String userId;
 
-    public Journal(){}
-
-    public Journal(String journalTitle, String journalEntry, Long dateCreated, int id) {
-        this.journalTitle = journalTitle;
-        this.journalEntry = journalEntry;
-        this.dateCreated = dateCreated;
-        this.id = id;
-    }
+    public Journal(){ }
 
     public String getJournalTitle() {
         return journalTitle;
@@ -47,5 +41,13 @@ public class Journal implements Serializable{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

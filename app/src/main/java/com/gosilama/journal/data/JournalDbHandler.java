@@ -11,13 +11,15 @@ import com.gosilama.journal.model.Journal;
 
 import java.util.ArrayList;
 
-import static com.gosilama.journal.model.Constants.DATABASE_NAME;
-import static com.gosilama.journal.model.Constants.DATABASE_VERSION;
-import static com.gosilama.journal.model.Constants.KEY_ID;
-import static com.gosilama.journal.model.Constants.KEY_JOURNAL_ENTRY;
-import static com.gosilama.journal.model.Constants.KEY_JOURNAL_TITLE;
-import static com.gosilama.journal.model.Constants.KEY_TIME_CREATED;
-import static com.gosilama.journal.model.Constants.TABLE_NAME;
+import static com.gosilama.journal.util.Constants.CURRENT_USER_ID;
+import static com.gosilama.journal.util.Constants.DATABASE_NAME;
+import static com.gosilama.journal.util.Constants.DATABASE_VERSION;
+import static com.gosilama.journal.util.Constants.KEY_ID;
+import static com.gosilama.journal.util.Constants.KEY_JOURNAL_ENTRY;
+import static com.gosilama.journal.util.Constants.KEY_JOURNAL_TITLE;
+import static com.gosilama.journal.util.Constants.KEY_TIME_CREATED;
+import static com.gosilama.journal.util.Constants.KEY_USER_ID;
+import static com.gosilama.journal.util.Constants.TABLE_NAME;
 
 public class JournalDbHandler extends SQLiteOpenHelper{
 
@@ -31,6 +33,7 @@ public class JournalDbHandler extends SQLiteOpenHelper{
         // CREATE TABLE
         String CREATE_JOURNAL_TABLE = "CREATE TABLE " + TABLE_NAME + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_USER_ID + " TEXT,"
                 + KEY_JOURNAL_TITLE + " TEXT,"
                 + KEY_JOURNAL_ENTRY + " TEXT,"
                 + KEY_TIME_CREATED + " LONG"
@@ -53,6 +56,7 @@ public class JournalDbHandler extends SQLiteOpenHelper{
 
         // CREATE KEY-VALUE PAIR OF COLUMN DATA
         ContentValues values = new ContentValues();
+        values.put(KEY_USER_ID, journal.getUserId());
         values.put(KEY_JOURNAL_TITLE, journal.getJournalTitle());
         values.put(KEY_JOURNAL_ENTRY, journal.getJournalEntry());
         values.put(KEY_TIME_CREATED, System.currentTimeMillis());
@@ -66,12 +70,12 @@ public class JournalDbHandler extends SQLiteOpenHelper{
         SQLiteDatabase db = getWritableDatabase();
 
         String columns[] = {KEY_ID, KEY_JOURNAL_TITLE, KEY_JOURNAL_ENTRY, KEY_TIME_CREATED};
-        String selectionArg[] = {Integer.toString(id)};
+        String selectionArg[] = {Integer.toString(id), CURRENT_USER_ID};
 
         Cursor cursor = db.query(
                 TABLE_NAME,
                 columns,
-                KEY_ID + "=?",
+                KEY_ID + "=? and " + KEY_USER_ID + "=?",
                 selectionArg,
                 null,
                 null,
@@ -82,6 +86,7 @@ public class JournalDbHandler extends SQLiteOpenHelper{
             cursor.moveToFirst();
 
             Journal journal = new Journal();
+            journal.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
             journal.setJournalTitle(cursor.getString(cursor.getColumnIndex(KEY_JOURNAL_TITLE)));
             journal.setJournalEntry(cursor.getString(cursor.getColumnIndex(KEY_JOURNAL_ENTRY)));
             journal.setDateCreated(cursor.getLong(cursor.getColumnIndex(KEY_TIME_CREATED)));
@@ -99,9 +104,13 @@ public class JournalDbHandler extends SQLiteOpenHelper{
 
         ArrayList<Journal> journalArrayList = new ArrayList<>();
 
-        String SELECT_ALL = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + KEY_ID + " DESC";
+        String SELECT_ALL = "SELECT * FROM " + TABLE_NAME
+                + " WHERE " + KEY_USER_ID + " =? "
+                + " ORDER BY " + KEY_ID + " DESC";
 
-        Cursor cursor = db.rawQuery(SELECT_ALL, null);
+        String selectionArg[] = {CURRENT_USER_ID};
+
+        Cursor cursor = db.rawQuery(SELECT_ALL, selectionArg);
 
         if (cursor.moveToFirst()) {
             do {

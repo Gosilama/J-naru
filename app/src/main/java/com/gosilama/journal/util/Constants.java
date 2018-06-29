@@ -1,4 +1,4 @@
-package com.gosilama.journal.model;
+package com.gosilama.journal.util;
 
 public final class Constants {
     private Constants(){ }
@@ -13,4 +13,7 @@ public final class Constants {
     public static final String KEY_JOURNAL_TITLE = "journal_title";
     public static final String KEY_JOURNAL_ENTRY = "journal_entry";
     public static final String KEY_TIME_CREATED = "time_created";
+    public static final String KEY_USER_ID = "user_id";
+
+    public static String CURRENT_USER_ID = "";
 }

@@ -1,18 +1,26 @@
 <resources>
     <string name="app_name">Jānaru</string>
-    <string name="hint_email">Username</string>
+    <string name="hint_email">Email Address</string>
     <string name="hint_password">Password</string>
-    <string name="user_login">Login</string>
+    <string name="user_login">Sign In</string>
     <string name="title_activity_journal_list">JournalListActivity</string>
     <string name="journal_title_hint">Entry title</string>
     <string name="journal_content_hint">Write away…</string>
+    <string name="journal_date_hint">Date Created</string>
     <string name="register_email_hint">Email</string>
     <string name="register_password_hint">Password</string>
     <string name="register_confirm_pwd_hint">Confirm Password</string>
-    <string name="user_register">REGISTER</string>
+    <string name="user_register">Sign up</string>
+    <string name="user_registration_prompt">Don\'t have an account? Sign Up</string>
     <string name="empty_entry_toast">Nothing on your mind?</string>
     <string name="save_entry_toast">Entry Saved</string>
     <string name="updated_entry_toast">Journal updated</string>
     <string name="registration_successful">Registered!</string>
-    <string name="registration_popup_message">Please Register. It will only take a few seconds</string>
+    <string name="registration_popup_message">Hi, this will only take a few seconds</string>
+    <string name="menu_item_logout">Logout</string>
+    <string name="login_with_google">Sign In with google</string>
+    <string name="failed_authentication">Authentication failed.</string>
+    <string name="fill_all_fields">Please fill all fields</string>
+    <string name="welcome_message">Hey there, welcome to Jānaru 🖐🏽</string>
+    <string name="google_sign_in_success">Signed in with google</string>
 </resources>

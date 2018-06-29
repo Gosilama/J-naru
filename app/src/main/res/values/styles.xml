@@ -17,4 +17,27 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@mipmap/janaru_splash</item>
+    </style>
+
+    <style name="JournalButton">
+        <item name="android:button">@color/colorPrimary</item>
+        <item name="android:padding">@dimen/journal_button_padding</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorJournalButtonText</item>
+        <item name="android:radius">@dimen/journal_button_radius</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="JournalSignInInput">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorJournalText</item>
+        <item name="android:lineSpacingExtra">2sp</item>
+    </style>
+
+    <style name="FloatingButtons">
+        <item name="android:background">@color/colorPrimaryDark</item>
+    </style>
 </resources>
