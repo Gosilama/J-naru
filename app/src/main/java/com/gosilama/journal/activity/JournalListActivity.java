@@ -62,7 +62,6 @@ public class JournalListActivity extends AppCompatActivity {
         journalRecyclerView.setAdapter(journalListAdapter);
 
         journalArrayList = dbHandler.readAllJournalEntries();
-        Log.d("JOURNAL LIST", CURRENT_USER_ID);
 
         for (Journal j: journalArrayList) {
             Journal journal = new Journal();
@@ -117,7 +116,7 @@ public class JournalListActivity extends AppCompatActivity {
         }
 
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.double_back_click, Toast.LENGTH_SHORT).show();
 
         new Handler().postDelayed(new Runnable() {
 

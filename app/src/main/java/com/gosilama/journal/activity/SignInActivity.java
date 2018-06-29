@@ -32,7 +32,6 @@ public class SignInActivity extends AppCompatActivity {
     private int GOOGLE_SIGN_IN = 1;
 
     private FirebaseAuth firebaseAuth;
-    private GoogleSignInOptions googleSignInOptions;
     private GoogleSignInClient googleSignInClient;
 
     private EditText userEmail;
@@ -60,7 +59,7 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
@@ -98,8 +97,7 @@ public class SignInActivity extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
-                Snackbar.make(findViewById(R.id.sign_in_layout),
-                        R.string.failed_authentication, Snackbar.LENGTH_SHORT).show();
+                showAuthSnackBar();
                 e.printStackTrace();
             }
         }
@@ -126,8 +124,7 @@ public class SignInActivity extends AppCompatActivity {
 
                                         goToJournalEntryList();
                                     } else {
-                                        Snackbar.make(findViewById(R.id.sign_in_layout),
-                                                R.string.failed_authentication, Snackbar.LENGTH_SHORT).show();
+                                        showAuthSnackBar();
                                     }
                                 }
                             });
@@ -174,8 +171,7 @@ public class SignInActivity extends AppCompatActivity {
                                                 registrationDialog.cancel();
                                                 goToJournalEntryList();
                                             } else {
-                                                Snackbar.make(findViewById(R.id.sign_in_layout),
-                                                        R.string.failed_authentication, Snackbar.LENGTH_SHORT).show();
+                                                showAuthSnackBar();
                                             }
                                         }
                                     });
@@ -209,8 +205,7 @@ public class SignInActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), R.string.google_sign_in_success, Toast.LENGTH_SHORT).show();
                             goToJournalEntryList();
                         } else {
-                            Snackbar.make(findViewById(R.id.sign_in_layout),
-                                    R.string.failed_authentication, Snackbar.LENGTH_SHORT).show();
+                            showAuthSnackBar();
                         }
                     }
                 });
@@ -232,5 +227,10 @@ public class SignInActivity extends AppCompatActivity {
     private void goToJournalEntryList() {
         Intent intent = new Intent(getApplicationContext(), JournalListActivity.class);
         startActivity(intent);
+    }
+
+    private void showAuthSnackBar() {
+        Snackbar.make(findViewById(R.id.sign_in_layout),
+                R.string.failed_authentication, Snackbar.LENGTH_SHORT).show();
     }
 }

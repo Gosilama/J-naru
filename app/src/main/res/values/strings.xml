@@ -23,4 +23,5 @@
     <string name="fill_all_fields">Please fill all fields</string>
     <string name="welcome_message">Hey there, welcome to Jānaru 🖐🏽</string>
     <string name="google_sign_in_success">Signed in with google</string>
+    <string name="double_back_click">Please click BACK again to exit</string>
 </resources>
