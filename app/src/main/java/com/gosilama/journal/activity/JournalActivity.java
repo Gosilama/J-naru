@@ -9,9 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 import com.gosilama.journal.R;
 import com.gosilama.journal.data.JournalDbHandler;
 import com.gosilama.journal.model.Journal;
@@ -19,8 +16,6 @@ import com.gosilama.journal.model.Journal;
 import static com.gosilama.journal.util.Constants.CURRENT_USER_ID;
 
 public class JournalActivity extends AppCompatActivity {
-
-    private FirebaseUser firebaseUser;
 
     private EditText journalEntryTitle;
     private EditText journalEntryContent;
@@ -33,11 +28,9 @@ public class JournalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal);
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        journalEntryTitle = findViewById(R.id.journal_entry_title);
-        journalEntryContent = findViewById(R.id.journal_entry_content);
-        saveJournalEntry = findViewById(R.id.save_action_btn);
+        journalEntryTitle = findViewById(R.id.edit_text_journal_entry_title);
+        journalEntryContent = findViewById(R.id.edit_text_journal_entry_content);
+        saveJournalEntry = findViewById(R.id.floating_action_button_save);
 
         dbHandler = new JournalDbHandler(this);
 

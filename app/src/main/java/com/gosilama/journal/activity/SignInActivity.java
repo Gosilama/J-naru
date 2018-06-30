@@ -29,7 +29,7 @@ import com.gosilama.journal.R;
 
 public class SignInActivity extends AppCompatActivity {
 
-    private int GOOGLE_SIGN_IN = 1;
+    private int EXTRA_GOOGLE_SIGN_IN = 1;
 
     private FirebaseAuth firebaseAuth;
     private GoogleSignInClient googleSignInClient;
@@ -65,12 +65,12 @@ public class SignInActivity extends AppCompatActivity {
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
 
-        userEmail = findViewById(R.id.input_email);
-        userPassword = findViewById(R.id.input_password);
+        userEmail = findViewById(R.id.edit_text_email);
+        userPassword = findViewById(R.id.edit_text_password);
 
-        signInButton = findViewById(R.id.sign_in_button);
-        signUpTrigger = findViewById(R.id.sign_up_trigger);
-        googleSignInButton = findViewById(R.id.sign_in_with_google_button);
+        signInButton = findViewById(R.id.button_sign_in);
+        signUpTrigger = findViewById(R.id.text_view_sign_up);
+        googleSignInButton = findViewById(R.id.button_google_sign_in);
 
         signInUser();
         signUpUser();
@@ -91,7 +91,7 @@ public class SignInActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == GOOGLE_SIGN_IN) {
+        if (requestCode == EXTRA_GOOGLE_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
@@ -103,7 +103,7 @@ public class SignInActivity extends AppCompatActivity {
         }
     }
 
-    private void signInUser() {
+    public void signInUser() {
         signInButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (!TextUtils.isEmpty(userEmail.getText())
@@ -137,7 +137,7 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    private void signUpUser() {
+    public void signUpUser() {
         signUpTrigger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,7 +147,7 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser() {
+    public void registerUser() {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,17 +185,17 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    private void signInWithGoogle() {
+    public void signInWithGoogle() {
         googleSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent googleSignInIntent = googleSignInClient.getSignInIntent();
-                startActivityForResult(googleSignInIntent, GOOGLE_SIGN_IN);
+                startActivityForResult(googleSignInIntent, EXTRA_GOOGLE_SIGN_IN);
             }
         });
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+    public void firebaseAuthWithGoogle(GoogleSignInAccount account) {
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
@@ -211,25 +211,25 @@ public class SignInActivity extends AppCompatActivity {
                 });
     }
 
-    private void createRegistrationDialog() {
+    public void createRegistrationDialog() {
         View view = getLayoutInflater().inflate(R.layout.registration_popup, null);
 
-        registerEmail = view.findViewById(R.id.register_email);
-        registerPassword = view.findViewById(R.id.register_password);
-        registerConfirmPassword = view.findViewById(R.id.register_confirm_password);
-        registerButton = view.findViewById(R.id.register_button);
+        registerEmail = view.findViewById(R.id.edit_text_register_email);
+        registerPassword = view.findViewById(R.id.edit_text_register_password);
+        registerConfirmPassword = view.findViewById(R.id.edit_text_confirm_password);
+        registerButton = view.findViewById(R.id.button_register);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this).setView(view);
         registrationDialog = alertDialogBuilder.create();
         registrationDialog.show();
     }
 
-    private void goToJournalEntryList() {
+    public void goToJournalEntryList() {
         Intent intent = new Intent(getApplicationContext(), JournalListActivity.class);
         startActivity(intent);
     }
 
-    private void showAuthSnackBar() {
+    public void showAuthSnackBar() {
         Snackbar.make(findViewById(R.id.sign_in_layout),
                 R.string.failed_authentication, Snackbar.LENGTH_SHORT).show();
     }

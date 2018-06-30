@@ -4,13 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.gosilama.journal.R;
 import com.gosilama.journal.activity.JournalActivity;
@@ -52,10 +51,10 @@ public class JournalListAdapter extends RecyclerView.Adapter<JournalListAdapter.
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView entrySummaryTitle = itemView.findViewById(R.id.entry_summary_title);
-        TextView entrySummaryContent = itemView.findViewById(R.id.entry_summary_content);
-        TextView entryCreationDate = itemView.findViewById(R.id.entry_creation_date);
-        Button deleteButton = itemView.findViewById(R.id.delete_entry);
+        TextView entrySummaryTitle = itemView.findViewById(R.id.text_view_entry_title);
+        TextView entrySummaryContent = itemView.findViewById(R.id.text_view_entry_summary);
+        TextView entryCreationDate = itemView.findViewById(R.id.text_view_creation_date);
+        TextView entryMenu = itemView.findViewById(R.id.text_view_options_menu);
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -66,15 +65,11 @@ public class JournalListAdapter extends RecyclerView.Adapter<JournalListAdapter.
             entrySummaryContent.setText(journal.getJournalEntry());
             entryCreationDate.setText(Utils.showReadableDate(journal.getDateCreated()));
 
-            deleteButton.setOnClickListener(this);
+            entryMenu.setOnClickListener(this);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    Intent intent = new Intent(context, JournalActivity.class);
-                    intent.putExtra("EXTRA_JOURNAL", journal);
-
-                    context.startActivity(intent);
+                    editJournalEntry(journal);
                 }
             });
         }
@@ -82,14 +77,39 @@ public class JournalListAdapter extends RecyclerView.Adapter<JournalListAdapter.
         @Override
         public void onClick(View v) {
 
-            int journalEntryPosition = getAdapterPosition();
-            Journal journal = journalArrayList.get(journalEntryPosition);
+            final int journalEntryPosition = getAdapterPosition();
+            final Journal journal = journalArrayList.get(journalEntryPosition);
 
-            if (v.getId() == R.id.delete_entry) {
-                deleteJournalEntry(journal.getId());
-                journalArrayList.remove(journalEntryPosition);
-                notifyItemRemoved(journalEntryPosition);
+            if (v.getId() == R.id.text_view_options_menu) {
+                PopupMenu popupMenu = new PopupMenu(context, entryMenu);
+
+                popupMenu.inflate(R.menu.journal_item_menu);
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.menu_edit_entry:
+                                editJournalEntry(journal);
+                                break;
+                            case R.id.menu_delete_entry:
+                                deleteJournalEntry(journal.getId());
+                                journalArrayList.remove(journalEntryPosition);
+                                notifyItemRemoved(journalEntryPosition);
+                        }
+                        return false;
+                    }
+                });
+
+                popupMenu.show();
             }
+        }
+
+        void editJournalEntry(Journal journal) {
+            Intent intent = new Intent(context, JournalActivity.class);
+            intent.putExtra("EXTRA_JOURNAL", journal);
+
+            context.startActivity(intent);
         }
 
         void deleteJournalEntry(int id) {

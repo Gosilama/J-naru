@@ -24,4 +24,6 @@
     <string name="welcome_message">Hey there, welcome to Jānaru 🖐🏽</string>
     <string name="google_sign_in_success">Signed in with google</string>
     <string name="double_back_click">Please click BACK again to exit</string>
+    <string name="edit_option">Edit</string>
+    <string name="delete_option">Delete</string>
 </resources>

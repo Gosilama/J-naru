@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/input_email"
+        android:id="@+id/edit_text_email"
         android:layout_width="@dimen/journal_default_width"
         android:layout_height="@dimen/journal_default_height"
         style="@style/JournalSignInInput"
@@ -27,7 +27,7 @@
         app:layout_constraintVertical_bias="0.198" />
 
     <EditText
-        android:id="@+id/input_password"
+        android:id="@+id/edit_text_password"
         android:layout_width="@dimen/journal_default_width"
         android:layout_height="@dimen/journal_default_height"
 
@@ -42,11 +42,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_email"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_email"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/sign_in_button"
+        android:id="@+id/button_sign_in"
         style="@style/JournalButton"
         android:layout_width="@dimen/journal_default_width"
         android:layout_height="@dimen/journal_default_height"
@@ -56,10 +56,10 @@
         android:text="@string/user_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_password" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_password" />
 
     <TextView
-        android:id="@+id/sign_up_trigger"
+        android:id="@+id/text_view_sign_up"
         android:layout_width="@dimen/journal_default_width"
         android:layout_height="@dimen/journal_default_height"
         android:layout_marginBottom="8dp"
@@ -67,17 +67,16 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/user_registration_prompt"
-        android:textSize="16sp"
         android:textAlignment="center"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_in_button"
+        app:layout_constraintTop_toBottomOf="@+id/button_sign_in"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/sign_in_with_google_button"
-        style="@style/JournalButton"
+        android:id="@+id/button_google_sign_in"
         android:layout_width="@dimen/journal_default_width"
         android:layout_height="@dimen/journal_default_height"
         android:layout_marginBottom="8dp"
@@ -86,14 +85,16 @@
         android:layout_marginTop="16dp"
         android:drawableStart="@mipmap/google_icon"
         android:text="@string/login_with_google"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_trigger"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_sign_up"
         app:layout_constraintVertical_bias="0.018" />
 
     <TextView
-        android:id="@+id/welcome_message"
+        android:id="@+id/text_view_welcome_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -105,7 +106,7 @@
         android:textSize="18sp"
         android:textStyle="italic"
         android:typeface="sans"
-        app:layout_constraintBottom_toTopOf="@+id/input_email"
+        app:layout_constraintBottom_toTopOf="@+id/edit_text_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -7,7 +7,7 @@
     tools:context=".activity.JournalActivity">
 
     <EditText
-        android:id="@+id/journal_entry_title"
+        android:id="@+id/edit_text_journal_entry_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -16,9 +16,9 @@
         android:layout_marginTop="16dp"
         android:hint="@string/journal_title_hint"
         android:inputType="text"
-        android:textSize="24sp"
         android:maxLength="32"
-        app:layout_constraintBottom_toTopOf="@+id/journal_entry_content"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/edit_text_journal_entry_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,8 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/journal_entry_content"
+        android:id="@+id/edit_text_journal_entry_content"
+        android:background="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -36,7 +37,6 @@
         android:hint="@string/journal_content_hint"
         android:inputType="textAutoCorrect|textAutoComplete|textMultiLine"
         android:textSize="18sp"
-        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
         app:layout_constraintVertical_bias="0.01" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/save_action_btn"
+        android:id="@+id/floating_action_button_save"
         style="@style/FloatingButtons"
         android:layout_width="98dp"
         android:layout_height="61dp"
@@ -54,7 +54,7 @@
         android:layout_marginTop="8dp"
         android:clickable="true"
         android:focusable="true"
-        android:src="@mipmap/save_button"
+        android:src="@android:drawable/ic_menu_save"
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

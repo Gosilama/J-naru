@@ -7,14 +7,14 @@
     tools:context=".activity.JournalListActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/journal_recycler_view"
+        android:id="@+id/recycler_view_journal_entries"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_anchor="@+id/add_journal_entry"
+        app:layout_anchor="@+id/floating_action_button_add_entry"
         app:layout_anchorGravity="right|center" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_journal_entry"
+        android:id="@+id/floating_action_button_add_entry"
         style="fl"
         android:layout_width="72dp"
         android:layout_height="60dp"
@@ -22,7 +22,7 @@
         android:layout_margin="16dp"
         android:clickable="true"
         android:focusable="true"
-        android:src="@mipmap/plus_button"
+        android:src="@android:drawable/ic_menu_add"
         app:backgroundTint="@color/colorPrimary"
         app:layout_anchorGravity="bottom|right|end" />
 </android.support.design.widget.CoordinatorLayout>

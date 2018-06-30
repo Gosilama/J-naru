@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,7 +19,6 @@ import com.gosilama.journal.R;
 import com.gosilama.journal.adapter.JournalListAdapter;
 import com.gosilama.journal.data.JournalDbHandler;
 import com.gosilama.journal.model.Journal;
-import com.gosilama.journal.util.Utils;
 
 import java.util.ArrayList;
 
@@ -28,19 +26,8 @@ import static com.gosilama.journal.util.Constants.CURRENT_USER_ID;
 
 public class JournalListActivity extends AppCompatActivity {
 
-    private FirebaseAuth firebaseAuth;
-    private FirebaseUser firebaseUser;
-
-    private JournalListAdapter journalListAdapter;
-    private ArrayList<Journal> journalArrayList;
-    private ArrayList<Journal> journalArrayListItem;
-    private RecyclerView.LayoutManager layoutManager;
-
-    private RecyclerView journalRecyclerView;
-
-    private JournalDbHandler dbHandler;
-
     boolean doubleBackToExitPressedOnce = false;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +35,16 @@ public class JournalListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_journal_list);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         CURRENT_USER_ID = firebaseUser != null ? firebaseUser.getUid() : null;
 
-        journalArrayList = new ArrayList<>();
-        journalArrayListItem = new ArrayList<>();
-        layoutManager = new LinearLayoutManager(this);
-        journalListAdapter = new JournalListAdapter(this, journalArrayListItem);
-        dbHandler = new JournalDbHandler(this);
+        ArrayList<Journal> journalArrayList = new ArrayList<>();
+        ArrayList<Journal> journalArrayListItem = new ArrayList<>();
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        JournalListAdapter journalListAdapter = new JournalListAdapter(this, journalArrayListItem);
+        JournalDbHandler dbHandler = new JournalDbHandler(this);
 
-        journalRecyclerView = findViewById(R.id.journal_recycler_view);
+        RecyclerView journalRecyclerView = findViewById(R.id.recycler_view_journal_entries);
         journalRecyclerView.setLayoutManager(layoutManager);
         journalRecyclerView.setAdapter(journalListAdapter);
 
@@ -75,7 +62,7 @@ public class JournalListActivity extends AppCompatActivity {
 
         journalListAdapter.notifyDataSetChanged();
 
-        FloatingActionButton addNewJournalEntry = findViewById(R.id.add_journal_entry);
+        FloatingActionButton addNewJournalEntry = findViewById(R.id.floating_action_button_add_entry);
         addNewJournalEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,7 +83,7 @@ public class JournalListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.logout_menu_item) {
+        if (item.getItemId() == R.id.menu_log_out) {
             firebaseAuth.signOut();
 
             finish();
