@@ -68,39 +68,6 @@ public class JournalDbHandler extends SQLiteOpenHelper{
         db.close();
     }
 
-    public Journal readJournalEntry(int id) {
-        SQLiteDatabase db = getWritableDatabase();
-
-        String columns[] = {KEY_ID, KEY_JOURNAL_TITLE, KEY_JOURNAL_ENTRY, KEY_TIME_CREATED};
-        String selectionArg[] = {Integer.toString(id), CURRENT_USER_ID};
-
-        Cursor cursor = db.query(
-                TABLE_NAME,
-                columns,
-                KEY_ID + "=? and " + KEY_USER_ID + "=?",
-                selectionArg,
-                null,
-                null,
-                null,
-                null);
-
-        if (cursor != null) {
-            cursor.moveToFirst();
-
-            Journal journal = new Journal();
-            journal.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
-            journal.setJournalTitle(cursor.getString(cursor.getColumnIndex(KEY_JOURNAL_TITLE)));
-            journal.setJournalEntry(cursor.getString(cursor.getColumnIndex(KEY_JOURNAL_ENTRY)));
-            journal.setDateCreated(cursor.getLong(cursor.getColumnIndex(KEY_TIME_CREATED)));
-
-            cursor.close();
-            db.close();
-
-            return journal;
-        }
-        return null;
-    }
-
     public ArrayList<Journal> readAllJournalEntries() {
         SQLiteDatabase db = getReadableDatabase();
 
@@ -110,17 +77,17 @@ public class JournalDbHandler extends SQLiteOpenHelper{
                 + " WHERE " + KEY_USER_ID + " =? "
                 + " ORDER BY " + KEY_ID + " DESC";
 
-        String TEMP_SELECT_ALL = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + KEY_ID + " DESC";
 
         String selectionArg[] = {CURRENT_USER_ID};
 
-        Cursor cursor = db.rawQuery(TEMP_SELECT_ALL, null);
+        Cursor cursor = db.rawQuery(SELECT_ALL, selectionArg);
 
         if (cursor.moveToFirst()) {
             do {
                 Journal journal = new Journal();
 
                 journal.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
+                journal.setUserId(cursor.getString(cursor.getColumnIndex(KEY_USER_ID)));
                 journal.setJournalTitle(cursor.getString(cursor.getColumnIndex(KEY_JOURNAL_TITLE)));
                 journal.setJournalEntry(cursor.getString(cursor.getColumnIndex(KEY_JOURNAL_ENTRY)));
                 journal.setDateCreated(cursor.getLong(cursor.getColumnIndex(KEY_TIME_CREATED)));
