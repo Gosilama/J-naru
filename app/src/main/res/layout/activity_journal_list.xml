@@ -22,7 +22,7 @@
         android:layout_margin="16dp"
         android:clickable="true"
         android:focusable="true"
-        android:src="@android:drawable/ic_menu_add"
+        android:src="@mipmap/baseline_add_white_18"
         app:backgroundTint="@color/colorPrimary"
         app:layout_anchorGravity="bottom|right|end" />
 </android.support.design.widget.CoordinatorLayout>
